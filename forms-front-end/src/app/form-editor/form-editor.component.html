@@ -1,0 +1,17 @@
+<!-- form-editor.component.html -->
+<div class="form-editor">
+  <h2>Editor de Formularios</h2>
+  <input [(ngModel)]="form.title" type="text" placeholder="Título del formulario">
+  <textarea [(ngModel)]="form.description" placeholder="Descripción del formulario"></textarea>
+  
+  <div class="questions">
+    <h3>Preguntas</h3>
+    <app-question-editor *ngFor="let question of form.questions; let i = index"
+                         [question]="question"
+                         [isCreating]="true" (deleteQuestion)="removeQuestion(i)"></app-question-editor>
+    <button (click)="addQuestion()">Agregar Pregunta</button>
+  </div>
+  <h3>Visualización mapa</h3>
+  <app-map></app-map>
+  <button (click)="saveForm()">Guardar Formulario</button>
+</div>
