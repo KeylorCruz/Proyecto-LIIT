@@ -1,0 +1,60 @@
+<!-- question-editor.component.html -->
+<div class="question-editor">
+  <!-- Configuración común de la pregunta -->
+  <input [(ngModel)]="question.questionText" type="text" placeholder="Texto de la pregunta">
+
+  <!-- Selector de tipo de pregunta -->
+  <select [(ngModel)]="question.ansType" (change)="updatePreview()">
+    <option value="respuestaCorta">Respuesta Corta</option>
+    <option value="respuestaLarga">Respuesta Larga</option>
+    <option value="fecha">Fecha</option>
+    <option value="seleccionCombobox">Selección Combobox</option>
+    <option value="seleccionCheckbox">Selección Checkbox</option>
+  </select>
+
+  <!-- Controles específicos del tipo de pregunta -->
+  <div *ngIf="question.ansType === 'respuestaCorta'">
+    <input type="text" placeholder="Respuesta corta" [disabled]="!isCreating">
+  </div>
+  <div *ngIf="question.ansType === 'respuestaLarga'">
+    <textarea placeholder="Respuesta larga" [disabled]="!isCreating"></textarea>
+  </div>
+  <div *ngIf="question.ansType === 'fecha'">
+    <input type="date" [disabled]="!isCreating">
+  </div>
+  
+  <!-- Previsualización para selección con combobox -->
+  <div *ngIf="question.ansType === 'seleccionCombobox'" >
+    <label>Previsualización:</label>
+    <select [disabled]="!isCreating">
+      <option *ngFor="let option of question.options" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+
+<!-- Previsualización para selección con checkbox -->
+  <div *ngIf="question.ansType === 'seleccionCheckbox'" class="checkbox-container">
+    <label>Previsualización:</label>
+    <div class="checkbox-group" *ngFor="let option of question.options; let j = index; trackBy: trackByFn">
+      <label class="checkbox-label">
+        <input type="checkbox" [disabled]="!isCreating">
+        <span class="checkbox-text">{{ option }}</span>
+      </label>
+    </div>
+  </div>
+
+
+
+  <!-- Editor de opciones -->
+  <div *ngIf="question.ansType === 'seleccionCombobox' || question.ansType === 'seleccionCheckbox'" class="options-container">
+    <label>Opciones:</label>
+    <div *ngFor="let option of question.options; let j = index; trackBy: trackByFn" class="options-container">
+      <input [(ngModel)]="question.options[j]" type="text" placeholder="Opción {{j + 1}}">
+      <button (click)="removeOption(j)">Eliminar Opción</button>
+    </div>
+    <button (click)="addOption()">Agregar Opción</button>
+  </div>
+  
+  <!-- Botón para eliminar pregunta -->
+  <button *ngIf="isCreating" (click)="delete()">Eliminar Pregunta</button>
+</div>
+
