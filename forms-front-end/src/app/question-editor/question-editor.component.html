@@ -14,13 +14,13 @@
 
   <!-- Controles específicos del tipo de pregunta -->
   <div *ngIf="question.ansType === 'respuestaCorta'">
-    <input type="text" placeholder="Respuesta corta" [disabled]="!isCreating">
+    <input type="text" placeholder="Respuesta corta" disabled>
   </div>
   <div *ngIf="question.ansType === 'respuestaLarga'">
-    <textarea placeholder="Respuesta larga" [disabled]="!isCreating"></textarea>
+    <textarea placeholder="Respuesta larga" disabled></textarea>
   </div>
   <div *ngIf="question.ansType === 'fecha'">
-    <input type="date" [disabled]="!isCreating">
+    <input type="date" disabled>
   </div>
   
   <!-- Previsualización para selección con combobox -->

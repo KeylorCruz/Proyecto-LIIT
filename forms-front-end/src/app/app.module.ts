@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Necesario para trabajar con formularios
 import { Router, RouterModule, Routes } from '@angular/router';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 // Componentes
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
+    DragDropModule,
   ],
   exports: [RouterModule],
   providers: [

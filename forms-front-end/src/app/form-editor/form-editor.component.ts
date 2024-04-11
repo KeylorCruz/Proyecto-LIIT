@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormService } from '../services/form.service';
 import { Form } from '../models/form.model';
 import { Question } from '../models/question.model';
+import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-form-editor',
@@ -70,5 +71,8 @@ export class FormEditorComponent implements OnInit {
       // El formulario no es válido, mostrar un mensaje al usuario
       alert('Por favor, complete todos los campos antes de guardar.');
     }
+  }
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.form.questions, event.previousIndex, event.currentIndex);
   }
 }
