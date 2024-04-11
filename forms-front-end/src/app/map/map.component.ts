@@ -4,7 +4,7 @@ import { latLng, latLngBounds, Map, marker, Marker, tileLayer } from 'leaflet';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'] // Asegúrate de que es 'styleUrls' en plural y con array
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
   private map!: Map;

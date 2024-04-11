@@ -4,10 +4,10 @@
   <input [(ngModel)]="form.title" type="text" placeholder="Título del formulario">
   <textarea [(ngModel)]="form.description" placeholder="Descripción del formulario"></textarea>
   
-  <div class="questions">
+  <div cdkDropList (cdkDropListDropped)="drop($event)" class="questions">
     <h3>Preguntas</h3>
-    <app-question-editor *ngFor="let question of form.questions; let i = index"
-                         [question]="question"
+    <app-question-editor  *ngFor="let question of form.questions; let i = index"
+                         [question]="question" cdkDrag
                          [isCreating]="true" (deleteQuestion)="removeQuestion(i)"></app-question-editor>
     <button (click)="addQuestion()">Agregar Pregunta</button>
   </div>
