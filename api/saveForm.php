@@ -15,7 +15,7 @@ function generateUniqueFormId($pdo, $length = 8) {
         $bytes = random_bytes((int) ceil($length / 2));
         $id = bin2hex($bytes);
         $form_id = substr($id, 0, $length);
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM Forms WHERE form_id = :form_id");
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM forms WHERE form_id = :form_id");
         $stmt->bindParam(':form_id', $form_id);
         $stmt->execute();
     } while ($stmt->fetchColumn() > 0);

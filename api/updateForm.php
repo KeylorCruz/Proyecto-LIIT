@@ -14,7 +14,7 @@ try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->prepare('UPDATE Forms SET title = :title, description = :description, questions = :questions WHERE form_id = :form_id');
+    $stmt = $pdo->prepare('UPDATE forms SET title = :title, description = :description, questions = :questions WHERE form_id = :form_id');
     $stmt->bindParam(':form_id', $form_id);
     $stmt->bindParam(':title', $data['title']);
     $stmt->bindParam(':description', $data['description']);

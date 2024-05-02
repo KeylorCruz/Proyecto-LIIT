@@ -15,7 +15,7 @@ CREATE TABLE forms (
 
 CREATE TABLE answers (
   answer_id INT NOT NULL AUTO_INCREMENT,
-  form_id INT NOT NULL,
+  form_id VARCHAR(10) NOT NULL,
   answer_values JSON NOT NULL,
   answer_date DATETIME NOT NULL,
   location GEOMETRY NOT NULL,

@@ -15,7 +15,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Seleccionar solo los campos necesarios y asegurarse de que el campo 'questions' se maneja como JSON
-    $stmt = $pdo->prepare("SELECT title, description, questions FROM Forms WHERE form_id = :formId");
+    $stmt = $pdo->prepare("SELECT title, description, questions FROM forms WHERE form_id = :formId");
     $stmt->bindParam(':formId', $formId);
     $stmt->execute();
 

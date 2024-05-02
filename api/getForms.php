@@ -12,7 +12,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Modificar la consulta para seleccionar solo form_id y title
-    $stmt = $pdo->query('SELECT form_id, title FROM Forms');
+    $stmt = $pdo->query('SELECT form_id, title FROM forms');
     $formularios = [];
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
