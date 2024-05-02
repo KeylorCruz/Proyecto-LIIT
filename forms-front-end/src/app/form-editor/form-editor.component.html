@@ -13,5 +13,7 @@
   </div>
   <h3>Visualización mapa</h3>
   <app-map></app-map>
-  <button (click)="saveForm()">Guardar Formulario</button>
+  <button *ngIf="!form.id" (click)="saveForm()">Guardar Formulario</button>
+  <button *ngIf="form.id" (click)="saveChanges()">Guardar Cambios</button>
+  <button *ngIf="form.id" (click)="deleteForm()">Eliminar Formulario</button>
 </div>

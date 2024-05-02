@@ -2,6 +2,7 @@
 <div class="app-container">
   <h1>Formularios georreferenciados</h1>
   <a routerLink="/create-form" *ngIf="router.url !== '/create-form'">Crear un nuevo formulario</a>
+  <a routerLink="/forms-list" *ngIf="router.url !== '/forms-list'">Ver formularios</a>
   <a routerLink="/" *ngIf="router.url !== '/'">Regresar</a>
   <router-outlet></router-outlet>
 </div>

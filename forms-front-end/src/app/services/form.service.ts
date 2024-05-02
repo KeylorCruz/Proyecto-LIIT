@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { Form } from '../models/form.model';
 import { Question, AnsType } from '../models/question.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +11,29 @@ import { Question, AnsType } from '../models/question.model';
 export class FormService {
   // Lista para almacenar los formularios
   private forms: Form[] = [];
+  private apiUrl = 'http://localhost/api';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   // Método para obtener todos los formularios
-  getForms(): Form[] {
-    return this.forms.slice(); // Retorna una copia de la lista para evitar manipulación directa
+  getForms(): Observable<Form[]> {
+    return this.http.get<Form[]>(`${this.apiUrl}/getForms.php`);
+  }
+  saveForm(form: Form): Observable<any> {
+    return this.http.post(`${this.apiUrl}/saveForm.php`, form);
+  }
+  updateForm(form: Form): Observable<any> {
+    return this.http.post(`${this.apiUrl}/updateForm.php`, form);
   }
 
-  // Método para agregar un nuevo formulario
-  addForm(form: Form): void {
-    this.forms.push(form);
+  deleteForm(formId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deleteForm.php`, { formId });
+  }
+
+  getFormByIdDB(formId: string): Observable<Form> {
+    return this.http.get<Form>(`${this.apiUrl}/getFormById.php`, {
+      params: { formId } // Asegúrate de que tu API pueda manejar estos parámetros correctamente
+    });
   }
 
   // Método para obtener un formulario por su ID
@@ -27,18 +41,6 @@ export class FormService {
     return this.forms.find(f => f.id === id);
   }
 
-  // Método para actualizar un formulario
-  updateForm(id: string, updatedForm: Form): void {
-    const index = this.forms.findIndex(f => f.id === id);
-    if (index !== -1) {
-      this.forms[index] = updatedForm;
-    }
-  }
-
-  // Método para eliminar un formulario
-  deleteForm(id: string): void {
-    this.forms = this.forms.filter(f => f.id !== id);
-  }
   // Agregar una pregunta a un formulario específico
   addQuestionToForm(formId: string, question: Question): void {
     const form = this.getFormPerId(formId);

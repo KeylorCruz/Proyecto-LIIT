@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormService } from '../services/form.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Form } from '../models/form.model';
 import { Question } from '../models/question.model';
 import {CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray} from '@angular/cdk/drag-drop';
@@ -13,9 +14,20 @@ export class FormEditorComponent implements OnInit {
   form: Form = new Form('', '', '', []);
   private idCounter = 0;
 
-  constructor(private formService: FormService) { }
+  constructor(
+    private formService: FormService,
+    private route: ActivatedRoute, 
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    const formId = this.route.snapshot.paramMap.get('id');
+    if (formId) {
+      // Cargar los datos del formulario usando formId si existe
+      this.formService.getFormByIdDB(formId).subscribe(data => {
+        this.form = data;
+      });
+    }
   }
 
   generateSequentialId(): number {
@@ -63,13 +75,36 @@ export class FormEditorComponent implements OnInit {
     // Validar el formulario antes de guardarlo
     if (this.isFormValid()) {
       // El formulario es válido, procede a guardarlo
-      this.formService.addForm(this.form);
-      this.form = new Form('', '', '', []); // Reiniciar formulario para una nueva entrada
-      this.idCounter = 0;
-      alert('Formulario guardado con éxito!');
+      this.formService.saveForm(this.form).subscribe({
+        next: (response) => {
+          console.log('Formulario guardado', response);
+          alert('Formulario guardado con éxito!');
+          this.form.id = response.form_id; // Actualizar el ID con el valor devuelto por el backend
+          this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+        },
+        error: (error) => {
+          console.error('Error al guardar el formulario:', error);
+        }
+      });
     } else {
       // El formulario no es válido, mostrar un mensaje al usuario
       alert('Por favor, complete todos los campos antes de guardar.');
+    }
+  }
+  saveChanges() {
+    this.formService.updateForm(this.form).subscribe(response => {
+      console.log('Formulario actualizado', response);
+      alert('Formulario actualizado con éxito!');
+      this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+    });
+  }
+  deleteForm() {
+    if (confirm('¿Está seguro de que desea eliminar este formulario?')) {
+      this.formService.deleteForm(this.form.id).subscribe(response => {
+        console.log('Formulario eliminado', response);
+        alert('Formulario eliminado con éxito!');
+        this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+      });
     }
   }
   drop(event: CdkDragDrop<string[]>) {
