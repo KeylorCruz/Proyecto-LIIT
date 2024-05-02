@@ -3,9 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Necesario para trabajar con formularios
 import { Router, RouterModule, Routes } from '@angular/router';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
 
 // Componentes
 import { AppComponent } from './app.component';
+import { AnswerComponent } from './answer/answer.component';
 import { FormEditorComponent } from './form-editor/form-editor.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
@@ -15,6 +17,7 @@ import { FormService } from './services/form.service';
 
 const appRoutes: Routes = [
     { path: 'create-form', component: FormEditorComponent },
+    { path: 'answer-form', component: AnswerComponent },
   ];
 
 @NgModule({
@@ -23,9 +26,11 @@ const appRoutes: Routes = [
     FormEditorComponent,
     QuestionEditorComponent,
     MapComponent,
+    AnswerComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule, 
     FormsModule,
     RouterModule.forRoot(appRoutes),
     DragDropModule,
@@ -33,6 +38,7 @@ const appRoutes: Routes = [
   exports: [RouterModule],
   providers: [
     FormService,
+    MapComponent
   ],
   bootstrap: [AppComponent]
 })
