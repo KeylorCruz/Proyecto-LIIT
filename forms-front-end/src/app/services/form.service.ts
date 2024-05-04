@@ -26,19 +26,19 @@ export class FormService {
     return this.http.post(`${this.apiUrl}/updateForm.php`, form);
   }
 
-  deleteForm(formId: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/deleteForm.php`, { formId });
+  deleteForm(form_id: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/deleteForm.php`, { form_id });
   }
 
   getFormByIdDB(formId: string): Observable<Form> {
     return this.http.get<Form>(`${this.apiUrl}/getFormById.php`, {
-      params: { formId } // Asegúrate de que tu API pueda manejar estos parámetros correctamente
+      params: { formId }
     });
   }
 
   // Método para obtener un formulario por su ID
   getFormPerId(id: string): Form | undefined {
-    return this.forms.find(f => f.id === id);
+    return this.forms.find(f => f.form_id === id);
   }
 
   // Agregar una pregunta a un formulario específico

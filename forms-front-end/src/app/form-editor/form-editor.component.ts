@@ -26,7 +26,10 @@ export class FormEditorComponent implements OnInit {
       // Cargar los datos del formulario usando formId si existe
       this.formService.getFormByIdDB(formId).subscribe(data => {
         this.form = data;
+        this.form.form_id = formId;
+        console.log("Cargado formulario ", this.form.form_id);
       });
+      
     }
   }
 
@@ -79,7 +82,6 @@ export class FormEditorComponent implements OnInit {
         next: (response) => {
           console.log('Formulario guardado', response);
           alert('Formulario guardado con éxito!');
-          this.form.id = response.form_id; // Actualizar el ID con el valor devuelto por el backend
           this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
         },
         error: (error) => {
@@ -91,19 +93,38 @@ export class FormEditorComponent implements OnInit {
       alert('Por favor, complete todos los campos antes de guardar.');
     }
   }
-  saveChanges() {
-    this.formService.updateForm(this.form).subscribe(response => {
-      console.log('Formulario actualizado', response);
-      alert('Formulario actualizado con éxito!');
-      this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
-    });
+  saveChanges():void {
+    // Validar el formulario antes de guardarlo
+    if (this.isFormValid()) {
+      // El formulario es válido, procede a guardarlo
+      console.log(this.form.form_id);
+      this.formService.updateForm(this.form).subscribe({
+        next: (response) => {
+          console.log('Formulario actualizado', response);
+          alert('Formulario actualizado con éxito!');
+          this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+        },
+        error: (error) => {
+          console.error('Error al actualizar el formulario:', error);
+        }
+      });
+    } else {
+      // El formulario no es válido, mostrar un mensaje al usuario
+      alert('Por favor, complete todos los campos antes de guardar.');
+    }
   }
-  deleteForm() {
+  deleteForm():void {
     if (confirm('¿Está seguro de que desea eliminar este formulario?')) {
-      this.formService.deleteForm(this.form.id).subscribe(response => {
-        console.log('Formulario eliminado', response);
-        alert('Formulario eliminado con éxito!');
-        this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+      console.log("Id del form:",this.form.form_id);
+      this.formService.deleteForm(this.form.form_id).subscribe({
+        next: (response) => {
+          console.log('Formulario eliminado', response);
+          alert('Formulario eliminado con éxito!');
+          this.router.navigate(['/forms-list']); // Redirigir a la lista de formularios
+        },
+        error: (error) => {
+          console.error('Error al eliminar el formulario:', error);
+        }
       });
     }
   }

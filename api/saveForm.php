@@ -1,6 +1,12 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://localhost:4200');
+header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit();
+}
 
 // Recibir datos POST desde Angular
 $data = json_decode(file_get_contents("php://input"), true);
@@ -33,7 +39,7 @@ try {
     $creation_date = date('Y-m-d H:i:s');
 
     // Preparar la inserción en la base de datos
-    $stmt = $pdo->prepare('INSERT INTO Forms (form_id, title, description, creation_date, questions) VALUES (:form_id, :title, :description, :creation_date, :questions)');
+    $stmt = $pdo->prepare('INSERT INTO forms (form_id, title, description, creation_date, questions) VALUES (:form_id, :title, :description, :creation_date, :questions)');
     
     // Vincular parámetros
     $stmt->bindParam(':form_id', $form_id);
