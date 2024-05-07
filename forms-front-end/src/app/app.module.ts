@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AnswerComponent } from './answer/answer.component';
 import { FormEditorComponent } from './form-editor/form-editor.component';
+import { LoginComponent } from './login/login.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
 
@@ -18,6 +19,7 @@ import { FormService } from './services/form.service';
 const appRoutes: Routes = [
     { path: 'create-form', component: FormEditorComponent },
     { path: 'answer-form', component: AnswerComponent },
+    { path: 'login', component: LoginComponent }
   ];
 
 @NgModule({
@@ -26,7 +28,8 @@ const appRoutes: Routes = [
     FormEditorComponent,
     QuestionEditorComponent,
     MapComponent,
-    AnswerComponent
+    AnswerComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
