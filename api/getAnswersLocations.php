@@ -16,26 +16,22 @@ try {
     // Captura el parámetro 'form_id' de la URL
     $form_id = isset($_GET['form_id']) ? $_GET['form_id'] : null;
 
-    // Construye la consulta SQL con el filtro WHERE si se proporciona form_id
-    $sql = 'SELECT title, questions,description FROM forms';
     if ($form_id) {
-        $sql .= ' WHERE form_id = :form_id';
-    }
+        // Llamar al procedimiento almacenado get_answers_locations
+        $stmt = $pdo->prepare('CALL get_answers_locations(:form_id)');
+        $stmt->bindParam(':form_id', $form_id, PDO::PARAM_STR);
+        $stmt->execute();
 
-    $stmt = $pdo->prepare($sql);
-    if ($form_id) {
-        $stmt->bindParam(':form_id', $form_id, PDO::PARAM_INT);
-    }
-    $stmt->execute();
-
-    $formularios = [];
-
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $row['questions'] = json_decode($row['questions'], true); // Decodificar la cadena JSON
-        $formularios[] = $row;
-    }
-    echo json_encode($formularios);
+        $answers = [];
         
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $answers[] = $row;
+        }
+
+        echo json_encode($answers);
+    } else {
+        echo json_encode(array('message' => 'No form_id provided'));
+    }
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(array('message' => 'Error al conectar con la base de datos: ' . $e->getMessage()));
