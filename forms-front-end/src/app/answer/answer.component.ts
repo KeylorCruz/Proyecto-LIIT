@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
 import { LatLng } from 'leaflet';
 import { FormService } from '../services/form.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-answer',
@@ -11,93 +12,59 @@ import { FormService } from '../services/form.service';
 })
 
 export class AnswerComponent {
+
+  forms: any[] = [];
   respuestas: { [key: string]: any } = {};
+
   showForm = false;
   actualCode = "";
-  constructor(private formService: FormService) { this.formService.setLatLng("", "")};
-
-  formJSON = [ // placeholder
-    {
-      "pregunta_id": "pregunta_1",
-      "tipo": "respuestaCorta",
-      "pregunta": "¿Cuál es tu nombre?"
-    },
-    {
-      "pregunta_id": "pregunta_2",
-      "tipo": "respuestaLarga",
-      "pregunta": "¿Cuál es tu experiencia con el uso de formularios en línea?"
-    },
-    {
-      "pregunta_id": "pregunta_3",
-      "tipo": "seleccionCheckbox",
-      "pregunta": "¿Qué tipo de formularios usas con más frecuencia?",
-      "opciones": [
-        "Formularios de contacto",
-        "Formularios de encuestas",
-        "Formularios de solicitud",
-        "Otros"
-      ]
-    },
-    {
-      "pregunta_id": "pregunta_4",
-      "tipo": "seleccionCombobox",
-      "pregunta": "¿En qué dispositivo sueles completar formularios?",
-      "opciones": [
-        "Computadora de escritorio",
-        "Laptop",
-        "Tablet",
-        "Teléfono inteligente"
-      ]
-    },
-    {
-      "pregunta_id": "pregunta_5",
-      "tipo": "seleccionCheckbox",
-      "pregunta": "¿Qué características te gustaría que tuvieran los formularios en línea?",
-      "opciones": [
-        "Diseño fácil de usar",
-        "Carga rápida",
-        "Seguridad de datos",
-        "Posibilidad de guardar y reanudar",
-        "Otras"
-      ]
-    },
-    {
-      "pregunta_id": "pregunta_6",
-      "tipo": "respuestaLarga",
-      "pregunta": "¿Cuál es tu experiencia con el uso de esta aplicación?"
-    },
-  ];
+  constructor(private formService: FormService, private http: HttpClient) { this.formService.setLatLng("", "") };
 
   loadForm() {
     const codigo = (document.getElementById('codigo') as HTMLInputElement).value;
-    if (this.isValidCode(codigo)) {
-      console.log("Código válido.");
-      this.showForm = true;
-      this.processQuestions();
+    this.actualCode = codigo;
+    if (codigo != "") {
+      const url = 'http://localhost/getFormByID.php?form_id=' + codigo;
+      let responseReceived = false;
+
+      this.http.get<any[]>(url).subscribe(data => {
+        this.forms = data;
+        responseReceived = true;
+      }, error => {
+        console.error('Error fetching forms | ', error);
+      });
+
+      // Bucle para esperar hasta que se reciba la respuesta
+      const interval = setInterval(() => {
+        if (responseReceived) {
+          clearInterval(interval); // Detener el bucle
+          if (this.forms.length == 0) {
+            alert("Introduzca un código válido.");
+            console.log("Código no válido.");
+          } else {
+            console.log("Código válido.");
+            this.showForm = true;
+            this.processQuestions();
+          }
+        }
+      }, 100);
     } else {
       alert("Introduzca un código válido.");
       console.log("Código no válido.");
     }
   }
 
-  // Función isValidCode que define la lógica de validación de su código
-  isValidCode(codigo: string): boolean {
-    // Implementar la lógica de validación (petición a la base de datos)
-    return codigo != "";
-  }
-
   processQuestions() {
     let htmlPreguntas = '';
 
     // Agregar el título y la descripción al inicio del HTML
-    htmlPreguntas += `<h2>Este es el título | placeholder</h2>`;
-    htmlPreguntas += `<h2>Descripción | placeholder</h2>`;
+    htmlPreguntas += `<h1>` + this.forms[0].title + `</h1>`;
+    htmlPreguntas += `<h2>` + this.forms[0].description + `</h2>`;
 
-    // Procesa el json y agrega las preguntas
-    // Cambiar por petición a la base de datos
-    this.formJSON.forEach(pregunta => {
-      htmlPreguntas += this.generateHTMLQuestion(pregunta);
-    });
+    // Agregar las preguntas al HTML
+    for (let i = 0; i < this.forms[0].questions.length; i++) {
+      htmlPreguntas += this.generateHTMLQuestion(this.forms[0].questions[i]);
+    }
 
     setTimeout(() => {
       const contenedorDatos = document.getElementById('contenedor-datos');
@@ -167,11 +134,11 @@ export class AnswerComponent {
   sendAnswers() {
     console.log("Procesando respuestas...");
     var emptyFields = false;
-    this.formJSON.forEach(pregunta => {
-      const elemento = document.getElementById(pregunta.pregunta_id);
+    for (let i = 0; i < this.forms[0].questions.length; i++) {
+      const elemento = document.getElementById(this.forms[0].questions[i].pregunta_id);
       if (!emptyFields) {
         if (elemento) {
-          switch (pregunta.tipo) {
+          switch (this.forms[0].questions[i].tipo) {
             case 'respuestaCorta':
             case 'respuestaLarga':
               const respuesta = (<HTMLInputElement>elemento).value.trim();
@@ -179,15 +146,15 @@ export class AnswerComponent {
                 emptyFields = true;
                 return;
               }
-              this.respuestas[pregunta.pregunta_id] = respuesta;
+              this.respuestas[this.forms[0].questions[i].pregunta_id] = respuesta;
               break;
 
             case 'seleccionCheckbox':
-              this.respuestas[pregunta.pregunta_id] = [];
-              document.querySelectorAll(`input[name=${pregunta.pregunta_id}]:checked`).forEach((checkbox: Element) => {
-                this.respuestas[pregunta.pregunta_id].push((checkbox as HTMLInputElement).id);
+              this.respuestas[this.forms[0].questions[i].pregunta_id] = [];
+              document.querySelectorAll(`input[name=${this.forms[0].questions[i].pregunta_id}]:checked`).forEach((checkbox: Element) => {
+                this.respuestas[this.forms[0].questions[i].pregunta_id].push((checkbox as HTMLInputElement).id);
               });
-              if (this.respuestas[pregunta.pregunta_id].length === 0) {
+              if (this.respuestas[this.forms[0].questions[i].pregunta_id].length === 0) {
                 emptyFields = true;
                 return;
               }
@@ -199,41 +166,56 @@ export class AnswerComponent {
                 emptyFields = true;
                 return;
               }
-              this.respuestas[pregunta.pregunta_id] = valorSeleccionado;
+              this.respuestas[this.forms[0].questions[i].pregunta_id] = valorSeleccionado;
               break;
           }
         } else {
-          console.error(`Elemento con id '${pregunta.pregunta_id}' no encontrado`);
+          console.error(`Elemento con id '${this.forms[0].questions[i].pregunta_id}' no encontrado`);
         }
       }
-    });
+    }
 
     const actualLat = this.formService.getLat();
     const actualLng = this.formService.getLng();
 
     if (!emptyFields && actualLat != '' && actualLng != '') {
-      this.respuestas = {
-        ...this.respuestas, 
-        latitud: actualLat,
-        longitud: actualLng
-      };
       console.log("Respuestas procesadas:", this.respuestas);
+     
+      fetch('http://localhost/insertAnswer.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          form_id: this.actualCode,
+          answer_values: this.respuestas,
+          location: `POINT(${actualLat}  ${actualLng})`,
+          lat: actualLat,
+          lng: actualLng
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Answer inserted successfully!') {
+            console.log('Answer inserted with ID:', data.answer_id);
+            //this.saveFileDEBUG();
 
-      // Llamar función para guardar el archivo, para ver el resultado como JSON
-      // Cambiar por insert a la base de datos
-      this.saveFileDEBUG();
+            alert("Respuestas enviadas con éxito.");
+            this.showForm = false; // Se cambia el estado de showForm para solicitar otro código
+            this.formService.setLatLng("", ""); // Se reinicia Lat-Lng
+          } else {
+            console.error('Error inserting answer:', data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error sending request:', error);
+        });
 
-      // Se cambia el estado de showForm para solicitar otro código
-      // Se reinicia Lat-Lng
-      alert("Respuestas enviadas con éxito.");
-      this.showForm = false;
-      this.formService.setLatLng("", "");
     } else {
       alert("Debe llenar todos los campos para enviar las respuestas.");
       console.log("Debe llenar todos los campos para enviar las respuestas.");
     }
   }
-
 
   saveFileDEBUG() {
     console.log("Guardando archivo con respuestas");

@@ -12,14 +12,17 @@ import { FormEditorComponent } from './form-editor/form-editor.component';
 import { LoginComponent } from './login/login.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
+import { ExporterComponent } from './exporter/exporter.component';
 
 // Servicios
 import { FormService } from './services/form.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const appRoutes: Routes = [
     { path: 'create-form', component: FormEditorComponent },
     { path: 'answer-form', component: AnswerComponent },
-    { path: 'login', component: LoginComponent }
+    { path: 'login', component: LoginComponent },
+    { path: 'exporter', component: ExporterComponent }
   ];
 
 @NgModule({
@@ -29,7 +32,8 @@ const appRoutes: Routes = [
     QuestionEditorComponent,
     MapComponent,
     AnswerComponent,
-    LoginComponent
+    LoginComponent,
+    ExporterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +41,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes),
     DragDropModule,
+    HttpClientModule
   ],
   exports: [RouterModule],
   providers: [
