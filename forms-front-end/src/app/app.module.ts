@@ -3,18 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Necesario para trabajar con formularios
 import { Router, RouterModule, Routes } from '@angular/router';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { HttpClientModule } from '@angular/common/http';
 
 // Componentes
 import { AppComponent } from './app.component';
 import { FormEditorComponent } from './form-editor/form-editor.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
+import { FormsListComponent } from './forms-list/forms-list.component';
 
 // Servicios
 import { FormService } from './services/form.service';
 
 const appRoutes: Routes = [
     { path: 'create-form', component: FormEditorComponent },
+    { path: 'forms-list', component: FormsListComponent },
+    { path: 'edit-form/:id', component: FormEditorComponent },
   ];
 
 @NgModule({
@@ -23,12 +27,14 @@ const appRoutes: Routes = [
     FormEditorComponent,
     QuestionEditorComponent,
     MapComponent,
+    FormsListComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
     DragDropModule,
+    HttpClientModule,
   ],
   exports: [RouterModule],
   providers: [
