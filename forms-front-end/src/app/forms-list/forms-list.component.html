@@ -2,6 +2,6 @@
     <div *ngFor="let form of forms" class="form-item">
       <p class="form-details">{{ form.form_id }}: {{ form.title }}</p>
       <button (click)="editForm(form.form_id)" class="edit-button">Editar</button>
+      <button (click)="viewResponses(form.form_id)" class="view-button">Ver Respuestas</button>
     </div>
-    <!-- <a routerLink="/" *ngIf="router.url !== '/'">Regresar</a>-->
   </div>

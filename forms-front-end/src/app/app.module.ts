@@ -11,6 +11,7 @@ import { FormEditorComponent } from './form-editor/form-editor.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
 import { FormsListComponent } from './forms-list/forms-list.component';
+import { ViewResponsesMapComponent } from './view-responses-map/view-responses-map.component';
 
 // Servicios
 import { FormService } from './services/form.service';
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'create-form', component: FormEditorComponent },
     { path: 'forms-list', component: FormsListComponent },
     { path: 'edit-form/:id', component: FormEditorComponent },
+    { path: 'view-responses/:formId', component: ViewResponsesMapComponent },
   ];
 
 @NgModule({
@@ -28,6 +30,7 @@ const appRoutes: Routes = [
     QuestionEditorComponent,
     MapComponent,
     FormsListComponent,
+    ViewResponsesMapComponent,
   ],
   imports: [
     BrowserModule,
