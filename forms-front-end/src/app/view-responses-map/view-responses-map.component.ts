@@ -36,7 +36,7 @@ export class ViewResponsesMapComponent implements OnInit {
   }
 
   private loadAnswerLocations(): void {
-    this.http.get<any[]>(`http://localhost/api/get_answers_locations.php?form_id=${this.formId}`)
+    this.http.get<any[]>(`http://localhost/api/getAnswersLocations.php?form_id=${this.formId}`)
       .subscribe(data => {
         data.forEach(location => {
           const marker = L.marker([location.latitude, location.longitude]);
@@ -47,8 +47,8 @@ export class ViewResponsesMapComponent implements OnInit {
   }
 
   private loadAnswerDetails(answerId: number): void {
-    this.http.get(`http://your-backend-url/get_answer_details.php?answer_id=${answerId}`)
-      .subscribe((data: any) => {
+    this.http.get<{ answer_id: number, answer_date: string, answer_values: any, location: string }>(`http://localhost/api/getAnswerByAnswerId.php?answer_id=${answerId}`)
+      .subscribe(data => {
         this.selectedAnswer = data;
       });
   }

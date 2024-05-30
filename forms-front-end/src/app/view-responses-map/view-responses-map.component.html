@@ -1,5 +1,8 @@
 <div id="view-responses-map"></div>
 <div class="details-panel" *ngIf="selectedAnswer">
-  <h4>Answer Details</h4>
-  <pre>{{ selectedAnswer | json }}</pre>
+  <h4>Detalles de la respuesta</h4>
+  <p><strong>ID:</strong> {{ selectedAnswer.answer_id }}</p>
+  <p><strong>Fecha de respuesta:</strong> {{ selectedAnswer.answer_date }}</p>
+  <p><strong>Ubicación:</strong> {{ selectedAnswer.location }}</p>
+  <pre>{{ selectedAnswer.answer_values | json }}</pre>
 </div>

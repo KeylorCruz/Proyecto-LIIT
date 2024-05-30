@@ -12,7 +12,7 @@ $data = json_decode(file_get_contents("php://input"), true);
 $host = 'localhost';
 $dbname = 'ProjectLIIT';
 $username = 'root';
-$password = '1234';
+$password = '4121';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
