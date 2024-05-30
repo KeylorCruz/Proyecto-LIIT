@@ -33,7 +33,7 @@ export class FormService {
   }
 
   getFormByIdDB(formId: string): Observable<Form> {
-    return this.http.get<Form>(`${this.apiUrl}/getFormById.php`, {
+    return this.http.get<Form>(`${this.apiUrl}/getForm.php`, {
       params: { formId }
     });
   }

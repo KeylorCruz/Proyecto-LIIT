@@ -1,7 +1,7 @@
 <div class="forms-list-container">
     <div *ngFor="let form of forms" class="form-item">
       <p class="form-details">{{ form.form_id }}: {{ form.title }}</p>
-      <button (click)="editForm(form.form_id)" class="edit-button">Editar</button>
-      <button (click)="viewResponses(form.form_id)" class="view-button">Ver Respuestas</button>
+      <button (click)="editForm(form.form_id)" class="button">Editar</button>
+      <button (click)="viewResponses(form.form_id)" class="button">Ver Respuestas</button>
     </div>
   </div>

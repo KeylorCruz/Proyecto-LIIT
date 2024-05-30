@@ -14,6 +14,10 @@ export class ViewResponsesMapComponent implements OnInit {
   private markers!: L.MarkerClusterGroup;
   private formId!: string;
   public selectedAnswer: any;
+  private bounds = L.latLngBounds(
+    L.latLng(8.032, -87.096), // Suroeste
+    L.latLng(11.217, -82.558) // Noreste
+  );
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
@@ -25,10 +29,12 @@ export class ViewResponsesMapComponent implements OnInit {
   }
 
   private initMap(): void {
-    this.map = L.map('view-responses-map').setView([51.505, -0.09], 13);
+    this.map = L.map('view-responses-map').setView([10, -84], 7);
+    this.map.setMaxBounds(this.bounds);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
+      attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
     this.markers = L.markerClusterGroup();
