@@ -1,7 +1,7 @@
-<nav>
-    <ul>
-      <li><a routerLink="/create-form">Crear formulario nuevo</a></li>
-      <li><a routerLink="/forms-list">Ver formularios</a></li>
-      <li><a (click)="logout()">Cerrar Sesión</a></li>
-    </ul>
-</nav>
+<div class="app-container">
+  <h1>Formularios georreferenciados</h1>
+  <a routerLink="/create-form">Crear formulario nuevo</a>
+  <a a routerLink="/forms-list">Ver formularios</a>
+  <a (click)="logout()">Cerrar Sesión</a>
+  <router-outlet></router-outlet>
+</div>

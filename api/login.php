@@ -16,15 +16,14 @@ $dbname = 'ProjectLIIT';
 $username = 'root';
 $password = '4121';
 
-
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->prepare('SELECT password from users WHERE user_id = :user_id');
+    $stmt = $pdo->prepare('SELECT password FROM users WHERE user_id = :user_id');
     
     // Vincular parámetros
-    $stmt->bindParam(':user_id', $data['user_id']);
+    $stmt->bindParam(':user_id', $data['user_id'], PDO::PARAM_INT);
     
     // Ejecutar la consulta
     $stmt->execute();
@@ -42,8 +41,6 @@ try {
     } else {
         echo json_encode(array('success' => false, 'message' => "Usuario no encontrado."));
     }
-
-    $stmt->close();
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(array('success' => false, 'message' => "Error en la base de datos: " . $e->getMessage()));

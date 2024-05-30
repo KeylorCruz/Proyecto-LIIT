@@ -24,7 +24,7 @@ export class LoginComponent {
       next: response => {
         if (response.success) {
           localStorage.setItem('isLoggedIn', 'true');
-          this.router.navigate(['/ruta-protegida']);
+          this.router.navigate(['/']);
         } else {
           this.errorMessage = response.message;
           
