@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="exporter.component.scss">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="exporter-group">
+        <div class="exporter-group">
+            <h2>Crear JSON por código de formulario</h2>
+            <input type="number" id="codigo" name="codigo" required placeholder="Ingrese código"
+                style="margin-bottom: 10px;">
+            <button type="button" (click)="createJSON_ByID()">Descargar JSON</button>
+        </div>
+        <div class="exporter-group">
+            <h2>Crear JSON de todos los formulario</h2>
+            <button type="button" (click)="createJSON()">Descargar JSON</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -15,6 +15,8 @@ import { ViewResponsesMapComponent } from './view-responses-map/view-responses-m
 import { LoginComponent } from './login/login.component';
 import { AuthorizedMenuComponent } from './authorized-menu/authorized-menu.component';
 import { NotAuthorizedMenuComponent } from './not-authorized-menu/not-authorized-menu.component';
+import { AnswerComponent } from './answer/answer.component';
+import { ExporterComponent } from './exporter/exporter.component';
 
 // Servicios
 import { FormService } from './services/form.service';
@@ -27,6 +29,8 @@ const appRoutes: Routes = [
     { path: 'forms-list', component: FormsListComponent, canActivate: [authGuard] },
     { path: 'edit-form/:id', component: FormEditorComponent, canActivate: [authGuard] },
     { path: 'view-responses/:formId', component: ViewResponsesMapComponent, canActivate: [authGuard] },
+    { path: 'answer-form', component: AnswerComponent },
+    { path: 'exporter', component: ExporterComponent, canActivate: [authGuard] },
   ];
 
 @NgModule({
@@ -40,6 +44,8 @@ const appRoutes: Routes = [
     LoginComponent,
     AuthorizedMenuComponent,
     NotAuthorizedMenuComponent,
+    AnswerComponent,
+    ExporterComponent,
   ],
   imports: [
     BrowserModule,

@@ -25,14 +25,19 @@ try {
         $answers = [];
         
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $answers[] = $row;
+            $answers[] = [
+                'answer_id' => $row['answer_id'],
+                'latitude' => $row['latitude'],
+                'longitude' => $row['longitude']
+            ];
         }
 
         echo json_encode($answers);
     } else {
-        echo json_encode(array('message' => 'No form_id provided'));
+        echo json_encode(['message' => 'No form_id provided']);
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(array('message' => 'Error al conectar con la base de datos: ' . $e->getMessage()));
+    echo json_encode(['message' => 'Error al conectar con la base de datos: ' . $e->getMessage()]);
 }
+?>
