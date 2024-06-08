@@ -18,7 +18,7 @@ CREATE TABLE forms_log (
   action VARCHAR(50) NOT NULL,
   timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (log_id),
-  FOREIGN KEY (form_id) REFERENCES forms (form_id)
+  FOREIGN KEY (form_id) REFERENCES forms (form_id) ON DELETE CASCADE
 );
 
 CREATE TABLE answers_log (
@@ -30,5 +30,5 @@ CREATE TABLE answers_log (
   action VARCHAR(50) NOT NULL,
   timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (log_id),
-  FOREIGN KEY (answer_id) REFERENCES answers (answer_id)
+  FOREIGN KEY (answer_id) REFERENCES answers (answer_id) ON DELETE CASCADE
 );
