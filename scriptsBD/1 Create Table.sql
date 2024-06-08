@@ -20,5 +20,5 @@ CREATE TABLE answers (
   answer_date DATETIME NOT NULL,
   location GEOMETRY NOT NULL,
   PRIMARY KEY (answer_id),
-  FOREIGN KEY (form_id) REFERENCES forms (form_id)
+  FOREIGN KEY (form_id) REFERENCES forms (form_id) ON DELETE CASCADE
 );
