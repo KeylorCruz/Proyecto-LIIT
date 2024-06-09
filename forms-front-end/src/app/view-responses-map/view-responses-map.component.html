@@ -1,8 +1,13 @@
-<div id="view-responses-map"></div>
-<div class="details-panel" *ngIf="selectedAnswer">
-  <h4>Detalles de la respuesta</h4>
-  <p><strong>ID:</strong> {{ selectedAnswer.answer_id }}</p>
-  <p><strong>Fecha de respuesta:</strong> {{ selectedAnswer.answer_date }}</p>
-  <p><strong>Ubicación:</strong> {{ selectedAnswer.location }}</p>
-  <pre>{{ selectedAnswer.answer_values | json }}</pre>
+<div id="view-responses-map-container">
+  <div id="view-responses-map"></div>
+  <div class="details-panel" *ngIf="selectedAnswer">
+    <h4>Detalles de la respuesta</h4>
+    <p><strong>ID:</strong> {{ selectedAnswer.answer_id }}</p>
+    <p><strong>Fecha de respuesta:</strong> {{ selectedAnswer.answer_date }}</p>
+    <p><strong>Ubicación:</strong> {{ selectedAnswer.location }}</p>
+    <p><strong>Respuestas</strong></p>
+    <ol>
+      <li *ngFor="let value of selectedAnswer.answer_values">{{ value }}</li>
+    </ol>
+  </div>
 </div>
