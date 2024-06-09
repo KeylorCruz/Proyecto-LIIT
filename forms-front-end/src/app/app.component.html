@@ -1,8 +1,3 @@
-<!-- app.component.html -->
-<div class="app-container">
-  <h1>Formularios georreferenciados</h1>
-  <a routerLink="/create-form" *ngIf="router.url == '/'">Crear un nuevo formulario</a>
-  <a routerLink="/forms-list" *ngIf="router.url == '/'">Ver formularios</a>
-  <a routerLink="/" *ngIf="router.url !== '/'">Menú principal</a>
-  <router-outlet></router-outlet>
-</div>
+<app-authorized-menu *ngIf="isLoggedIn()"></app-authorized-menu>
+<app-not-authorized-menu *ngIf="!isLoggedIn()"></app-not-authorized-menu>
+<router-outlet></router-outlet>

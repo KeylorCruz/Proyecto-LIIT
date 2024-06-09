@@ -11,14 +11,26 @@ import { FormEditorComponent } from './form-editor/form-editor.component';
 import { QuestionEditorComponent } from './question-editor/question-editor.component';
 import { MapComponent } from './map/map.component';	
 import { FormsListComponent } from './forms-list/forms-list.component';
+import { ViewResponsesMapComponent } from './view-responses-map/view-responses-map.component';
+import { LoginComponent } from './login/login.component';
+import { AuthorizedMenuComponent } from './authorized-menu/authorized-menu.component';
+import { NotAuthorizedMenuComponent } from './not-authorized-menu/not-authorized-menu.component';
+import { AnswerComponent } from './answer/answer.component';
+import { ExporterComponent } from './exporter/exporter.component';
 
 // Servicios
 import { FormService } from './services/form.service';
 
+import { authGuard } from './auth.guard';
+
 const appRoutes: Routes = [
-    { path: 'create-form', component: FormEditorComponent },
-    { path: 'forms-list', component: FormsListComponent },
-    { path: 'edit-form/:id', component: FormEditorComponent },
+    { path: 'login', component: LoginComponent },
+    { path: 'create-form', component: FormEditorComponent, canActivate: [authGuard] },
+    { path: 'forms-list', component: FormsListComponent, canActivate: [authGuard] },
+    { path: 'edit-form/:id', component: FormEditorComponent, canActivate: [authGuard] },
+    { path: 'view-responses/:formId', component: ViewResponsesMapComponent, canActivate: [authGuard] },
+    { path: 'answer-form', component: AnswerComponent },
+    { path: 'exporter', component: ExporterComponent, canActivate: [authGuard] },
   ];
 
 @NgModule({
@@ -28,6 +40,12 @@ const appRoutes: Routes = [
     QuestionEditorComponent,
     MapComponent,
     FormsListComponent,
+    ViewResponsesMapComponent,
+    LoginComponent,
+    AuthorizedMenuComponent,
+    NotAuthorizedMenuComponent,
+    AnswerComponent,
+    ExporterComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,87 @@
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 0;
+}
+
+/* Exporter */
+.exporter {
+    width: 600px;
+    word-wrap: break-word;
+}
+
+
+/* Exporter-group */
+.exporter-group {
+    border: 1px solid rgb(218, 220, 224);
+    text-align: left;
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.exporter-group button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.exporter-group button:hover {
+    transform: translateY(-3px);
+}
+
+.combo-box,
+.exporter-group input[type="date"],
+.exporter-group input[type="text"], 
+.exporter-group input[type="number"] {
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.exporter-group textarea {
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    border: 2px solid rgb(218, 220, 224);
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.exporter-group input[type="date"] {
+    border: 2px solid rgb(218, 220, 224);
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.exporter-group label {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.exporter-group input[type="text"]:focus,
+.exporter-group textarea:focus,
+.exporter-group select:focus,
+.exporter-group input[type="date"]:focus {
+    outline: none;
+}
+
+/* exporter-boxes */
+.exporter-boxes {
+    margin-bottom: 4px;
+    border: 2px solid rgb(218, 220, 224);
+    border-radius: 6px;
+}

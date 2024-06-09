@@ -1,0 +1,25 @@
+#view-responses-map-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+#view-responses-map {
+  flex: 2;
+  height: 75vh;
+}
+
+.details-panel {
+  flex: 1;
+  padding: 10px;
+  background-color: #f9f9f9;
+  overflow-y: auto;
+}
+
+.details-panel ol {
+  padding-left: 20px;
+}
+
+.details-panel li, p{
+  text-align: left;
+}

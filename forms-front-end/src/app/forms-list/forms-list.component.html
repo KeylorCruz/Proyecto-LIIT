@@ -1,7 +1,9 @@
 <div class="forms-list-container">
-    <div *ngFor="let form of forms" class="form-item">
-      <p class="form-details">{{ form.form_id }}: {{ form.title }}</p>
-      <button (click)="editForm(form.form_id)" class="edit-button">Editar</button>
+  <div *ngFor="let form of forms" class="form-item">
+    <p class="form-details">{{ form.form_id }}: {{ form.title }}</p>
+    <div class="button-container">
+      <button (click)="editForm(form.form_id)" class="button">Editar</button>
+      <button (click)="viewResponses(form.form_id)" class="button">Ver Respuestas</button>
     </div>
-    <!-- <a routerLink="/" *ngIf="router.url !== '/'">Regresar</a>-->
   </div>
+</div>

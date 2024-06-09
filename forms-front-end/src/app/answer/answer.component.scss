@@ -1,0 +1,87 @@
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 0;
+}
+
+/* Answer */
+.answer {
+    width: 600px;
+    word-wrap: break-word;
+}
+
+
+/* Answer-group */
+.answer-group {
+    border: 1px solid rgb(218, 220, 224);
+    text-align: left;
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.answer-group button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.answer-group button:hover {
+    transform: translateY(-3px);
+}
+
+.combo-box,
+.answer-group input[type="date"],
+.answer-group input[type="text"], 
+.answer-group input[type="number"] {
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.answer-group textarea {
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    border: 2px solid rgb(218, 220, 224);
+    border-radius: 6px;
+    background-color: #f8f8f8;
+    resize: none;
+}
+
+.answer-group input[type="date"] {
+    border: 2px solid rgb(218, 220, 224);
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.answer-group label {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.answer-group input[type="text"]:focus,
+.answer-group textarea:focus,
+.answer-group select:focus,
+.answer-group input[type="date"]:focus {
+    outline: none;
+}
+
+/* answer-boxes */
+.answer-boxes {
+    margin-bottom: 4px;
+    border: 2px solid rgb(218, 220, 224);
+    border-radius: 6px;
+}

@@ -1,0 +1,21 @@
+/* app.component.scss */
+@import '../../variables';
+.app-container {
+  text-align: center;
+  margin-top: 20px;
+
+  h1 {
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  a {
+    @extend .btn; // Extiende los estilos de botón reutilizables
+    @extend .btn-primary; // Utiliza el estilo de botón primario
+    margin-right: 10px;
+    text-decoration: none;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

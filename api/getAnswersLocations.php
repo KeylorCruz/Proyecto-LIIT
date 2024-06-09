@@ -1,13 +1,16 @@
 <?php
-header('Access-Control-Allow-Origin: http://localhost:4200');
+header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
 header('Content-Type: application/json');
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit();
+}
 
 $host = 'localhost';
 $dbname = 'ProjectLIIT';
 $username = 'root';
-$password = '1234';
+$password = '4121';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -25,14 +28,19 @@ try {
         $answers = [];
         
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $answers[] = $row;
+            $answers[] = [
+                'answer_id' => $row['answer_id'],
+                'latitude' => $row['latitude'],
+                'longitude' => $row['longitude']
+            ];
         }
 
         echo json_encode($answers);
     } else {
-        echo json_encode(array('message' => 'No form_id provided'));
+        echo json_encode(['message' => 'No form_id provided']);
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(array('message' => 'Error al conectar con la base de datos: ' . $e->getMessage()));
+    echo json_encode(['message' => 'Error al conectar con la base de datos: ' . $e->getMessage()]);
 }
+?>

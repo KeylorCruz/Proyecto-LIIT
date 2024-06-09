@@ -1,0 +1,105 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: #222;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.topnav a:hover {
+    color: #59bbfd;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a.active {
+    background-color: #ddd;
+    color: black;
+}
+
+
+.topnav input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    width: 120px;
+}
+
+.topnav .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    background-color: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.topnav .search-container button:hover {
+    background-color: #ccc;
+}
+
+.login-form {
+    margin: 80px auto;
+    padding: 80px 60px;
+    box-shadow: 0px 7px 10px 5px rgb(0 0 0 / 5%);
+    background: #fff;
+    width: 100%;
+    max-width: 600px;
+    margin-top: 80px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.login-form h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form input {
+    background-color: #fff;
+    width: 100%;
+    padding: 8px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    transition: background-color 0.3s ease;
+}
+
+.login-form input.filled {
+    background-color: #e8f0fe;
+}
+
+.login-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.login-form button:hover {
+    transform: translateY(-3px);
+}

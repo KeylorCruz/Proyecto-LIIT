@@ -17,7 +17,7 @@ CREATE TABLE answers (
   answer_id INT NOT NULL AUTO_INCREMENT,
   form_id VARCHAR(10) NOT NULL,
   answer_values JSON NOT NULL,
-  answer_date DATETIME NOT NULL,
+  answer_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   location GEOMETRY NOT NULL,
   PRIMARY KEY (answer_id),
   FOREIGN KEY (form_id) REFERENCES forms (form_id) ON DELETE CASCADE

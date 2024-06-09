@@ -33,5 +33,8 @@ export class FormsListComponent implements OnInit {
   editForm(formId: string) {
     this.router.navigate(['/edit-form', formId]);
   }
+  viewResponses(formId: string): void {
+    this.router.navigate(['/view-responses', formId]);
+  }
 }
 

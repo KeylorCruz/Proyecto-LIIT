@@ -12,6 +12,8 @@ export class FormService {
   // Lista para almacenar los formularios
   private forms: Form[] = [];
   private apiUrl = 'http://localhost/api';
+  private lat: string = "";
+  private lng: string = "";
 
   constructor(private http: HttpClient) { }
 
@@ -31,7 +33,7 @@ export class FormService {
   }
 
   getFormByIdDB(formId: string): Observable<Form> {
-    return this.http.get<Form>(`${this.apiUrl}/getFormById.php`, {
+    return this.http.get<Form>(`${this.apiUrl}/getForm.php`, {
       params: { formId }
     });
   }
@@ -66,5 +68,18 @@ export class FormService {
     if (form) {
       form.questions = form.questions.filter(p => p.id !== questionId);
     }
+  }
+  // Obtiene el punto actual en el mapa
+  getLat(): string {
+    return this.lat;
+  }
+  getLng(): string {
+    return this.lng;
+  }
+
+  // Actualiza el punto actual en el mapa
+  setLatLng(lat: string, lng: string): void {
+    this.lat = lat;
+    this.lng = lng;
   }
 }
