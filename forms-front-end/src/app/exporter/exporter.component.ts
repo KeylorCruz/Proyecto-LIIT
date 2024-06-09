@@ -72,14 +72,9 @@ export class ExporterComponent {
     const interval = setInterval(() => {
       if (responseReceived) {
         clearInterval(interval); // Detener el bucle
-        if (this.answers.length == 0) {
-          alert("Introduzca un código válido.");
-          console.log("Código no válido.");
-        } else {
-          console.log("Código válido.");
-          console.log(this.answers);
-          this.saveFileJSON();
-        }
+        console.log("Código válido.");
+        console.log(this.answers);
+        this.saveFileJSON();
       }
     }, 100);
   }
