@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class FormService {
   // Lista para almacenar los formularios
   private forms: Form[] = [];
-  private apiUrl = 'http://localhost/api';
+  private apiUrl = 'http://158.23.137.77/apiS3';
   private lat: string = "";
   private lng: string = "";
 

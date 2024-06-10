@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms'; // Necesario para trabajar con for
 import { Router, RouterModule, Routes } from '@angular/router';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
+import 'leaflet';
+import 'leaflet.markercluster';
+import 'leaflet.fullscreen';
 
 // Componentes
 import { AppComponent } from './app.component';

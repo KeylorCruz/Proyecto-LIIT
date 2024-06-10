@@ -24,7 +24,7 @@ export class AnswerComponent {
     const codigo = (document.getElementById('codigo') as HTMLInputElement).value;
     this.actualCode = codigo;
     if (codigo != "") {
-      const url = 'http://localhost/api/getFormById.php?form_id=' + codigo;
+      const url = 'http://158.23.137.77/apiS3/getFormById.php?form_id=' + codigo;
       let responseReceived = false;
 
       this.http.get<any[]>(url).subscribe(data => {
@@ -204,7 +204,7 @@ export class AnswerComponent {
     if (!emptyFields && actualLat != '' && actualLng != '') {
       console.log("Respuestas procesadas:", this.respuestas);
   
-      fetch('http://localhost/api/insertAnswer.php', {
+      fetch('http://158.23.137.77/apiS3/insertAnswer.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

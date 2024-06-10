@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  private apiUrl = 'http://localhost/api/login.php';
+  private apiUrl = 'http://158.23.137.77/apiS3/login.php';
   errorMessage: string = '';
   constructor(private http: HttpClient, private router: Router) {}
   login(event: Event) {

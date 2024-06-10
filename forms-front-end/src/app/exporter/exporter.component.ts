@@ -14,7 +14,7 @@ export class ExporterComponent {
   createJSON_ByID() {
     const codigo = (document.getElementById('codigo') as HTMLInputElement).value;
     if (codigo != "") {
-      const url = 'http://localhost/api/getAnswersByFormID.php?form_id=' + codigo;
+      const url = 'http://158.23.137.77/apiS3/getAnswersByFormID.php?form_id=' + codigo;
       let responseReceived = false;
 
       this.http.get<any[]>(url).subscribe(data => {
@@ -58,7 +58,7 @@ export class ExporterComponent {
   }
 
   createJSON() {
-    const url = 'http://localhost/api/getAnswers.php';
+    const url = 'http://158.23.137.77/apiS3/getAnswers.php';
     let responseReceived = false;
 
     this.http.get<any[]>(url).subscribe(data => {
