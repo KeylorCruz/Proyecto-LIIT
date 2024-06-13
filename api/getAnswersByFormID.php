@@ -27,7 +27,7 @@ try {
 
     $stmt = $pdo->prepare($sql);
     if ($form_id) {
-        $stmt->bindParam(':form_id', $form_id, PDO::PARAM_INT);
+        $stmt->bindParam(':form_id', $form_id);
     }
     $stmt->execute();
 
